@@ -1,0 +1,189 @@
+
+def silly_age_joke():
+    print('How old are you?')
+    age = int(sys.stdin.readline())
+    if age >= 10 and age <= 13:
+    	print('What is 13 + 49 + 84 + 155 + 97? A headache!')
+    else:
+    	print('Huh?')
+
+
+
+
+what works on basic nexus 5k 
+
+
+def counter():
+  a = 100
+  while a < 100:
+       print('a')
+       a = a + 1
+       clear()
+
+a = 100
+def counter():
+     while a < 100:
+	     print(a)
+	     a = a + 1
+
+#imports;
+
+import os
+import sys
+import socket
+import cisco
+
+def clear():
+    print('\n' * 50)
+
+def cls():
+    os.system(['clear','cls'][os.name == 'nt'])
+
+
+
+
+
+
+
+    import socket               # Import socket module
+
+s = socket.socket()         # Create a socket object
+host = socket.gethostname() # Get local machine name
+port = 12345                # Reserve a port for your service.
+s.bind((host, port))        # Bind to the port
+
+s.listen(5)                 # Now wait for client connection.
+while True:
+   c, addr = s.accept()     # Establish connection with client.
+   print 'Got connection from', addr
+   c.send('Thank you for connecting')
+   c.close()                # Close the connection
+
+
+   for number in range(1,100):
+  print(number)
+
+
+
+
+
+
+
+cisco.cli("end")
+cisco.cli("exit")
+
+print(time.asctime())
+
+def blink():
+    for number in range(1,100):
+        banner()
+        clear()
+
+def clear():
+   os.system('clear')
+
+   
+
+
+print(os.name)
+
+def ipinput():
+    output = cisco.cli('show hostname')
+    print(output)
+    ipadd = raw_input('Enter IP address : ')
+    clear()
+    print(ipadd, "thank you")
+    cisco.cli("ping", ipadd)
+    yn = raw_input('is this correct(Y/N: ')
+          if raw_input = 'y':
+             cisco.cli("config t")
+             cisco.cli("interface vlan2")
+             cisco.cli("ip address", ipadd)
+             cisco.cli("end")
+             cisco.cli("show interface vlan2")
+          elif raw_input = 'n'
+              print("Let's try again")
+          def ipinput()
+
+
+output = cisco.cli('show hostname')
+cisco.cli("config t")
+
+
+cisco.cli("ping 1.1.1.1")
+
+def ipinput():
+    output = cisco.cli('show hostname')
+    print(output)
+    ipadd = raw_input('Enter IP address : ')
+    print(ipadd)
+    yn = raw_input('is this correct(Y/N: ')
+if yn == 'y':
+    print("ok I will configure switch")
+else: 
+    print(" Good bye!")  
+
+
+
+
+fproute = "show fabricpath route"
+cisco.cli(fproute)
+
+
+class hostname:
+  def hosts():
+    host = socket.gethostname()
+    print("show hostname using socekts object")
+    cisco.cli('show hostname')
+    print("show hostname using nexus object")
+    print(host)
+
+
+
+ISTB15kDC1# >>> testfile = open('/bootflash/FPAUTHON5k.cfg')
+ISTB15kDC1# >>> auth = testfile.read()
+ISTB15kDC1# >>> print(auth) 
+
+
+
+
+
+
+
+yn = 'y' 
+while yn == n:  #
+  yn = raw_input('is this correct(Y/N: ')
+  if yn != 'y':
+     print ("You entered: ", yn)
+else:
+     print("Correct")
+     
+
+
+for letter in 'Python':     # First Example
+   if letter == 'h':
+      break
+   print 'Current Letter :', letter
+  
+var = 10                    # Second Example
+while var > 0:              
+   print 'Current variable value :', var
+   var = var -1
+   if var == 5:
+      break
+
+print "Good bye!"
+
+
+
+def banner():
+   host = socket.gethostname()
+   print("_" * 50)
+   print("welcome to")
+   print(host)
+   print("_" * 50)
+
+
+
+
+
