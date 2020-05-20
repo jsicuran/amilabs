@@ -10,6 +10,7 @@
 import PySimpleGUI as sg
 import netmiko
 import getpass
+import json
 
 ##### connect to lab evpn switch ####
 from netmiko import ConnectHandler
@@ -31,35 +32,43 @@ output = net_connect.send_command('sh l2route evpn mac all ')
 ############ LAUNCH GUI ################
 
 ###################LOGIN TO SWITCH POPUP#################
-
+###Pseudo
+### click login button -- popup for IP and creds of switch
+### enter creds
+### error check
+### success = popup disappears
+### blinking connected status on app main window appears or changes from disconnected to connected
 
 
 #########################################################
 
 #########MAIN APPLICATION################################
-
+###WINDOW LAYOUT#####
 
 sg.theme('Light Blue')
 
 layout = [  [sg.Text('BGP-EVPN Detail:')],
+            [sg.Button('LOGIN TO A SWITCH', button_color=('white', 'green'), size=(20,2))],
             [sg.Button('BGP Summary'), sg.Button('BGP MAC Routes'), sg.Button('Layer2 MAC Routes'), sg.Button('BGP NLRI Type 2'), sg.Button('BGP Neighbors')],
             [sg.Text('VXLAN NVE/VNI Detail:')],
             [sg.Button('VXLAN'), sg.Button('VXLAN Interfaces'), sg.Button('VNI'), sg.Button('NVE Peers'), sg.Button('NVE Peer Detail')],
+            [sg.Button('L2FWDR Mac'), sg.Button('L2RIB Topology History'), sg.Button('L2RIB Error Logs')],
             [sg.Text('ISIS Underlay Detail:')],
             [sg.Button('ISIS Adjacency'), sg.Button('ISIS Routing'), sg.Button('ISIS Topology'), sg.Button('ISIS Database'), sg.Button('ISIS Database Detail')],
 
             [sg.Button('Clear'), sg.Button('Exit')],
 
             [sg.Text('Enter CLI Command'), sg.In(key='-IN-')],
-            [sg.Output(size=(70,40), key='-OUTPUT-')]]
+            [sg.Text('Enter REST API Command'), sg.In(key='-IN-')],
+            [sg.Output(size=(132,40), key='-OUTPUT-')]]
             #[sg.In(key='-IN-')]]
 
 
-window = sg.Window('BGP EVPN Monitor Utility', layout)
+window = sg.Window('JEFFs BGP EVPN Monitor Utility', layout)
 
 while True:             # Event Loop
     event, values = window.read()
-    print(event, values)
+    print(event, values)   # Leave active to test button dictionary value
     if event in (None, 'Exit'):
         break
     if event == 'Clear':
@@ -84,6 +93,12 @@ while True:             # Event Loop
         window['-OUTPUT-'].update(net_connect.send_command('sh nve peers '))
     if event == 'NVE Peer Detail':
         window['-OUTPUT-'].update(net_connect.send_command('sh nve peers detail '))
+    if event == 'L2FWDR Mac':
+        window['-OUTPUT-'].update(net_connect.send_command('sh system internal l2fwder mac  '))
+    if event == 'L2RIB Topology History':
+        window['-OUTPUT-'].update(net_connect.send_command('sh system internal l2rib event-history topology '))
+    if event == 'L2RIB Error Logs':
+        window['-OUTPUT-'].update(net_connect.send_command('sh system internal l2rib event-history error '))
     if event == 'ISIS Adjacency':
         window['-OUTPUT-'].update(net_connect.send_command('sh isis adjacency '))
     if event == 'ISIS Routing':
