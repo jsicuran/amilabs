@@ -21,15 +21,12 @@ iosv_l2_s1 = {
     'username': 'admin',
     'password': 'admin',
 }
-
-
-#def evpn():
 net_connect = ConnectHandler(**iosv_l2_s1)
-output = net_connect.send_command('sh l2route evpn mac all ')
+
 
 #########################################################
 
-############ LAUNCH GUI ################
+############ LAUNCH GUI #################################
 
 ###################LOGIN TO SWITCH POPUP#################
 ###Pseudo
@@ -49,30 +46,34 @@ sg.theme('Light Blue')
 
 layout = [  [sg.Text('BGP-EVPN Detail:')],
             [sg.Button('LOGIN TO A SWITCH', button_color=('white', 'green'), size=(20,2))],
+            [sg.Text('FABRIC OVERLAY Detail:')],
             [sg.Button('BGP Summary'), sg.Button('BGP MAC Routes'), sg.Button('Layer2 MAC Routes'), sg.Button('BGP NLRI Type 2'), sg.Button('BGP Neighbors')],
             [sg.Text('VXLAN NVE/VNI Detail:')],
             [sg.Button('VXLAN'), sg.Button('VXLAN Interfaces'), sg.Button('VNI'), sg.Button('NVE Peers'), sg.Button('NVE Peer Detail')],
             [sg.Button('L2FWDR Mac'), sg.Button('L2RIB Topology History'), sg.Button('L2RIB Error Logs')],
-            [sg.Text('ISIS Underlay Detail:')],
+            [sg.Text('FABRIC UNDERLAY Detail:')],
             [sg.Button('ISIS Adjacency'), sg.Button('ISIS Routing'), sg.Button('ISIS Topology'), sg.Button('ISIS Database'), sg.Button('ISIS Database Detail')],
 
             [sg.Button('Clear'), sg.Button('Exit')],
 
-            [sg.Text('Enter CLI Command'), sg.In(key='-IN-')],
-            [sg.Text('Enter REST API Command'), sg.In(key='-IN-')],
+            [sg.Text('Enter CLI Command'), sg.InputText(key='-CLI-'), sg.Button('Submit')],
+            [sg.Text('Enter REST API Command'), sg.InputText(key='-REST-'), sg.Text('JSON-RPC - Coming Soon')],
             [sg.Output(size=(132,40), key='-OUTPUT-')]]
             #[sg.In(key='-IN-')]]
 
 
-window = sg.Window('JEFFs BGP EVPN Monitor Utility', layout)
+window = sg.Window('JEFFs BGP EVPN Looking Glass Utility', layout)
 
-while True:             # Event Loop
+while True:             # MAIN Event Loop
     event, values = window.read()
     print(event, values)   # Leave active to test button dictionary value
     if event in (None, 'Exit'):
         break
     if event == 'Clear':
         window['-OUTPUT-'].update('')
+    if event == 'Submit':
+        cli_command = values['-CLI-']
+        window['-OUTPUT-'].update(net_connect.send_command(cli_command))
     if event == 'BGP Summary':
         window['-OUTPUT-'].update(net_connect.send_command('sh bgp l2vpn evpn summ '))
     if event == 'BGP MAC Routes':
