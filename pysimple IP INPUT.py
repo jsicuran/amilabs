@@ -2,6 +2,11 @@
 ####2020 AMI Inc. Jeff Sicuranza#####
 #####################################
 
+######################USE CASES#################################
+### 1). FRONT END GUI POP UP FOR DEVICE LOGIN              #####
+### 2). COOKBOOK CODE TO INTEGRATE INTO LARGER APPLICAITON #####
+### 3). QUICK SSH TESTER FOR NETWORK DEVICES               #####
+################################################################
 
 #####IMPORTS#####
 import PySimpleGUI as sg
