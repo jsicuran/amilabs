@@ -4,7 +4,7 @@
 #  ***FNBLI DEV-OPS CORE SWITCH LOOKING GLASS APPLICATION***        #
 #  MAY 2020 Applied Methodologies, Inc                              #
 #  Author: Jeff Sicuranza                                           #
-#  Purpose built hard coded to switch IP version                    #
+#  LOGIN TO SWITCH VERSION                                          #
 #  IDE(PyCharm) based and complied runtime versions available       #
 #####################################################################
 
@@ -54,7 +54,7 @@ net_connect = ConnectHandler(**iosv_l2_s1)
 ####print (json.dumps(ios_output, indent=4))
 ####TOOL TIPS
 #### WINDOW AUTO RE-SIZE
-####Disconnect session/release cleanup 
+####Disconnect session/release cleanup
 
 ####################################################################################################################
 
@@ -63,8 +63,12 @@ net_connect = ConnectHandler(**iosv_l2_s1)
 
 sg.theme('Green')
 
-layout = [  [sg.Text('FNBLI CORE SWITCH #1 @ 10.200.100.230', font=("bold", 15))],
-            #[sg.Button('LOGIN TO A SWITCH', button_color=('white', 'green'), size=(20,2))],
+layout = [
+
+            #### PUT IN LOGIN LAYOUT HERE#####
+
+    ########################################################
+
             [sg.Text('INTERFACES - CONSOLE LOG - VLAN - VRRP - IP ASSIGNMENTS:', font=("bold"))],
             [sg.Button('CONNECTED NEIGHBORS'), sg.Button('INTERFACE ASSIGNMENTS'), sg.Button('INTERFACE PORT UTILIZATION'), sg.Button('REAL TIME INTERFACE STATISTICS'), sg.Button('VLAN ASSIGNMENTS'), sg.Button('SWITCH LOG', button_color=('white', 'red'))],
             [sg.Button('VRRP CONFIG'), sg.Button('VRRP SUMMARY'), sg.Button('IP ASSIGNMENTS'), sg.Button('ARP TABLE')],
@@ -83,6 +87,9 @@ layout = [  [sg.Text('FNBLI CORE SWITCH #1 @ 10.200.100.230', font=("bold", 15))
 window = sg.Window('FNBLI CORE SWITCH LOOKING GLASS V1.1', layout)
 
 while True:             # MAIN Event Loop
+     #### PUT IN LOGIN PROCESS AND ERROR HANDLING HERE#####
+     #### OR SPLIT INTO FUNCTIONS AND CALL#####
+
     event, values = window.read()
     print(event, values)   # Leave active to test button dictionary value
     if event in (None, 'Exit'):
@@ -160,6 +167,8 @@ while True:             # MAIN Event Loop
         window['-OUTPUT-'].update('TO BE ADDED')
 
 window.close()
+
+###GARBAGE COLLECTION ROUTINES###
 
 ###############
 ####END RUN####

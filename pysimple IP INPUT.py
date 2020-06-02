@@ -8,7 +8,11 @@
 ### 3). QUICK SSH TESTER FOR NETWORK DEVICES               #####
 ################################################################
 
-#####IMPORTS#####
+#########
+#IMPORTS#
+#########
+
+#import PySimpleGUIWeb as sg ---> FOR WEB VERSON
 import PySimpleGUI as sg
 import netmiko
 import getpass
@@ -41,7 +45,7 @@ layout = [[sg.Text('Enter IP Address:')],
                  [sg.InputText(key='-PWD-')],
                  [sg.Submit(), sg.Cancel(), sg.Button('Disconnect')],
                  [sg.Text('Connection Status:')],
-                 [sg.Output(size=(43, 10), key='-OUTPUT-')]]
+                 [sg.Output(size=(43, 10), key='-OUTPUT1-')]]
 
 window = sg.Window('Connect to Switch', layout)
 #######MAIN ROUTINE#####################
@@ -66,23 +70,23 @@ while True:             # MAIN Event Loop
 ######ERROR EXCEPTION AND STATUS HANDLING######
         try:
             net_connect = ConnectHandler(**ios_device)
-            window['-OUTPUT-'].update(print("Connected to:" + IP_address ))
+            window['-OUTPUT1-'].update(print("Connected to:" + IP_address ))
             continue
         except (AuthenticationException):
-            window['-OUTPUT-'].update(print("Check Credentials!"))
+            window['-OUTPUT1-'].update(print("Check Credentials!"))
             continue
         except (NetMikoTimeoutException):
-            window['-OUTPUT-'].update(print("Timeout to:" + IP_address ))
+            window['-OUTPUT1-'].update(print("Timeout to:" + IP_address ))
             continue
         except (SSHException):
-            window['-OUTPUT-'].update(print("Check SSH Setup!"))
+            window['-OUTPUT1-'].update(print("Check SSH Setup!"))
             continue
         except Exception as unknown_error:
-            window['-OUTPUT-'].update(print("Unknown Error:" + str(unknown_error)))
+            window['-OUTPUT1-'].update(print("Unknown Error:" + str(unknown_error)))
         continue
     if event == 'Disconnect':            #### DISCONNECT FROM SWITCH
         net_connect.disconnect()
-        window['-OUTPUT-'].update(print("Disconnected from:" + IP_address ))
+        window['-OUTPUT1-'].update(print("Disconnected from:" + IP_address ))
 
 #################CLOSE WINDOW##############
 
