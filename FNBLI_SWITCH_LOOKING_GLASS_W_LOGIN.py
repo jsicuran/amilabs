@@ -62,25 +62,26 @@ net_connect = ConnectHandler(**iosv_l2_s1)
 ###WINDOW LAYOUT#####
 
 sg.theme('Green')
+################# PUT IN LOGIN LAYOUT HERE#########################
+layout = [ [sg.Text('Enter IPv4 Address:', font=("bold")), sg.InputText(key='-IP-', size=(18, 1)) ,sg.Text('Switch Credentials(SSH ONLY):', font=("bold")), sg.Text('Enter Username:', font=("bold")), sg.InputText(key='-USER-', size=(22, 1)), sg.Text('Enter Password:', font=("bold")), sg.InputText(key='-PWD-', password_char="*",  size=(22, 1))],
+                 [sg.Submit(), sg.Cancel(), sg.Button('Disconnect')],
+                 [sg.Text('Connection Status LOG:', font=("bold"))],
+                 [sg.Output(size=(35, 5), key='-OUTPUT1-'), sg.Image(r'C:\Users\jsicu\Downloads\FNBLI.png', size=(398, 96), pad=(178,0))],
 
-layout = [
-
-            #### PUT IN LOGIN LAYOUT HERE#####
-
-    ########################################################
-
+################## MAIN APPLICATION CONTROLS FUNCTIONS ################################################
+            [sg.Text('_'  * 160)],
             [sg.Text('INTERFACES - CONSOLE LOG - VLAN - VRRP - IP ASSIGNMENTS:', font=("bold"))],
-            [sg.Button('CONNECTED NEIGHBORS'), sg.Button('INTERFACE ASSIGNMENTS'), sg.Button('INTERFACE PORT UTILIZATION'), sg.Button('REAL TIME INTERFACE STATISTICS'), sg.Button('VLAN ASSIGNMENTS'), sg.Button('SWITCH LOG', button_color=('white', 'red'))],
+            [sg.Button('CONNECTED NEIGHBORS'), sg.Button('INTERFACE ASSIGNMENTS'), sg.Button('INTERFACE PORT UTILIZATION'), sg.Button('REAL TIME INTERFACE STATISTICS'), sg.Button('VLAN ASSIGNMENTS'), sg.Button('SWITCH LOG', tooltip='Switch Log from most recent to old',  button_color=('white', 'red'))],
             [sg.Button('VRRP CONFIG'), sg.Button('VRRP SUMMARY'), sg.Button('IP ASSIGNMENTS'), sg.Button('ARP TABLE')],
             [sg.Text('DISTRIBUTED TRUNKING/SPANNING TREE:', font=("bold"))],
             [sg.Button('DTS STATUS'), sg.Button('DTS CONFIG'), sg.Button('DTS PEER KEEPALIVE'), sg.Button('DTS CONSISTENCY'), sg.Button('SWITCH INTERCONNECT'), sg.Button('LACP'), sg.Button('LACP PEERS'), sg.Button('STP INCONSISTENT PORTS'), sg.Button('STP SUMMARY')],
             [sg.Text('BGP AND ROUTING:', font=("bold"))],
             [sg.Button('IP ROUTING TABLE'), sg.Button('ROUTE SUMMARY'), sg.Button('BGP TABLE'), sg.Button('BGP SUMMARY'), sg.Button('BGP GENERAL DETAILS'), sg.Button('BGP NEIGHBOR'), sg.Button('BGP NEIGHBOR DETAILS'), sg.Button('BGP LOGGING'), sg.Button('BGP AS PATH')],
-            [sg.Button('BOLT-ON VLAN STATS'), sg.Button('CC PtP VLAN STATS'), sg.Button('FISERV SPECIFIC 1'), sg.Button('FISERV SPECIFIC 2'), sg.Image(r'C:\Users\jsicu\Downloads\FNBLI.png', size=(398, 96))],
-            [sg.Button('Clear'), sg.Button('Exit')],
+            [sg.Button('BOLT-ON VLAN STATS'), sg.Button('CC PtP VLAN STATS'), sg.Button('FISERV SPECIFIC 1'), sg.Button('FISERV SPECIFIC 2')],
+            [sg.Button('Clear', tooltip='Clears window below'), sg.Button('Exit', tooltip='EXIT Application')],
             [sg.Text('Enter CLI Command', font=("bold")), sg.InputText(key='-CLI-'), sg.Button('Submit')],
             [sg.Text('Enter REST API Command', font=("bold")), sg.InputText(key='-REST-'), sg.Text('JSON-RPC - Coming Soon')],
-            [sg.Output(size=(155, 32), key='-OUTPUT-')]]
+            [sg.Output(size=(158, 28), key='-OUTPUT-')]]
             #####look into sg.output formatting vs. Json.
             ####print (json.dumps(ios_output, indent=4))
 
