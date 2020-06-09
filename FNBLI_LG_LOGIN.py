@@ -6,8 +6,8 @@
 #  Author: Jeff Sicuranza                                           #
 #  LOGIN TO ANY DEVICE VERSION                                      #
 #  IDE(PyCharm) based and complied runtime versions available       #
-#  Version 1.3 buttons all work when only connected no transfer yet #
-#  Not connected and button press will exit application             #
+#  Version 1.3 buttons all work regardless of connection status     #
+#  Not connected and buttons pressed will not exit application      #
 #####################################################################
 
 
