@@ -147,6 +147,7 @@ def apprun():
             window['-OUTPUT-'].update('TO BE ADDED')
         if event == 'Disconnect':  #### DISCONNECT FROM SWITCH
             net_connect.disconnect()
+            window['-OUTPUT-'].update('')
             window['-OUTPUT-'].update(print("Disconnected from:" + IP_address))
 #######################END MAIN APPLICATION LOGIC################################################
 
