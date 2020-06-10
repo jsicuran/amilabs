@@ -61,6 +61,7 @@ from netmiko.ssh_exception import AuthenticationException
 
 ####################################################################################################################
 
+###OLD SCHOOL CALL OUT TO COBOL RUNCOB#########
 
 ###WINDOW THEME #####
 sg.theme('Green')
@@ -98,6 +99,8 @@ def apprun():
             window['-OUTPUT-'].update(net_connect.send_command('sh ip '))
         if event == 'ARP TABLE':
             window['-OUTPUT-'].update(net_connect.send_command('sh arp  '))
+        if event == 'SWITCH MODULES':
+            window['-OUTPUT-'].update(net_connect.send_command('sh modules details  '))
         if event == 'DTS STATUS':
             window['-OUTPUT-'].update(net_connect.send_command('sh distributed-trunking status '))
         if event == 'DTS CONFIG':
@@ -127,12 +130,8 @@ def apprun():
             window['-OUTPUT-'].update(net_connect.send_command('sh ip bgp sum '))
         if event == 'BGP GENERAL DETAILS':
             window['-OUTPUT-'].update(net_connect.send_command('show ip bgp general '))
-        if event == 'ISIS Database':
-            window['-OUTPUT-'].update(net_connect.send_command('sh isis database '))
         if event == 'BGP NEIGHBOR':
             window['-OUTPUT-'].update(net_connect.send_command('sh ip bgp neighbor '))
-        if event == 'BGP NEIGHBOR DETAILS':
-            window['-OUTPUT-'].update(net_connect.send_command('sh ip bgp neighbor detail'))
         if event == 'BGP LOGGING':
             window['-OUTPUT-'].update(net_connect.send_command('sh logging bgp '))
         if event == 'BGP AS PATH':
@@ -142,13 +141,14 @@ def apprun():
         if event == 'FISERV SPECIFIC 2':
             window['-OUTPUT-'].update('TO BE ADDED')
         if event == 'BOLT-ON VLAN STATS':
-            window['-OUTPUT-'].update('TO BE ADDED')
+            window['-OUTPUT-'].update(net_connect.send_command('sh vlan 2000'))
         if event == 'CC PtP VLAN STATS':
             window['-OUTPUT-'].update('TO BE ADDED')
         if event == 'Disconnect':  #### DISCONNECT FROM SWITCH
             net_connect.disconnect()
             window['-OUTPUT-'].update('')
             window['-OUTPUT-'].update(print("Disconnected from:" + IP_address))
+            break
 #######################END MAIN APPLICATION LOGIC################################################
 
 
@@ -161,24 +161,24 @@ layout = [[sg.Text('Enter IPv4 Address:', font=("bold")), sg.InputText(key='-IP-
             sg.InputText(key='-PWD-', password_char="*", size=(22, 1))],
             [sg.Button('Login'), sg.Cancel(), sg.Button('Disconnect')],
             [sg.Text('_' * 160)],
-              # [sg.Text('Connection Status LOG:', font=("bold"))],
-              # [sg.Output(size=(35, 5), key='-OUTPUT1-'),
-            [sg.Image(r'C:\Users\jsicu\Downloads\FNBLI.png', size=(398, 96), pad=(400, 0))],
-
+            # [sg.Text('Connection Status LOG:', font=("bold"))],
+            # [sg.Output(size=(35, 5), key='-OUTPUT1-'),
+            #[sg.Image(r"C:\Users\jsicu\PycharmProjects\GNS3-AUTOMATION\FNBLI.png", size=(398, 96), pad=(400, 0))],
+            [sg.Text('******FNBLI CORE SWITCH LOOKING GLASS UTILITY******', pad=(400,0), font=("bold"))],
 ################## MAIN APPLICATION SCREEN LAYOUT ################################################
             [sg.Text('_'  * 160)],
             [sg.Text('INTERFACES - CONSOLE LOG - VLAN - VRRP - IP ASSIGNMENTS:', font=("bold"))],
             [sg.Button('CONNECTED NEIGHBORS'), sg.Button('INTERFACE ASSIGNMENTS'), sg.Button('INTERFACE PORT UTILIZATION'), sg.Button('REAL TIME INTERFACE STATISTICS'), sg.Button('VLAN ASSIGNMENTS'), sg.Button('SWITCH LOG', tooltip='Switch Log from most recent to old',  button_color=('white', 'blue')), sg.Button('SSH CONNECTIONS', tooltip='Show users logged into switch', button_color=('black', 'orange'))],
-            [sg.Button('VRRP CONFIG'), sg.Button('VRRP SUMMARY'), sg.Button('IP ASSIGNMENTS'), sg.Button('ARP TABLE')],
+            [sg.Button('VRRP CONFIG'), sg.Button('VRRP SUMMARY'), sg.Button('IP ASSIGNMENTS'), sg.Button('ARP TABLE'), sg.Button('SWITCH MODULES')],
             [sg.Text('DISTRIBUTED TRUNKING/SPANNING TREE:', font=("bold"))],
-            [sg.Button('DTS STATUS'), sg.Button('DTS CONFIG'), sg.Button('DTS PEER KEEPALIVE'), sg.Button('DTS CONSISTENCY'), sg.Button('SWITCH INTERCONNECT'), sg.Button('LACP'), sg.Button('LACP PEERS'), sg.Button('STP INCONSISTENT PORTS'), sg.Button('STP SUMMARY')],
+            [sg.Button('DTS STATUS'), sg.Button('DTS CONFIG'), sg.Button('DTS PEER KEEPALIVE'), sg.Button('DTS CONSISTENCY'), sg.Button('SWITCH INTERCONNECT STATUS'), sg.Button('LACP'), sg.Button('LACP PEERS'), sg.Button('STP INCONSISTENT PORTS'), sg.Button('STP SUMMARY')],
             [sg.Text('BGP AND ROUTING:', font=("bold"))],
-            [sg.Button('IP ROUTING TABLE'), sg.Button('ROUTE SUMMARY'), sg.Button('BGP TABLE'), sg.Button('BGP SUMMARY'), sg.Button('BGP GENERAL DETAILS'), sg.Button('BGP NEIGHBOR'), sg.Button('BGP NEIGHBOR DETAILS'), sg.Button('BGP LOGGING'), sg.Button('BGP AS PATH')],
+            [sg.Button('IP ROUTING TABLE'), sg.Button('ROUTE SUMMARY'), sg.Button('BGP TABLE'), sg.Button('BGP SUMMARY'), sg.Button('BGP GENERAL DETAILS'), sg.Button('BGP NEIGHBOR'), sg.Button('BGP LOGGING'), sg.Button('BGP AS PATH')],
             [sg.Button('BOLT-ON VLAN STATS', tooltip='Vendor BOLT ON VLAN STATS'), sg.Button('CC PtP VLAN STATS',tooltip='Crown Castle PtP Interface stats'), sg.Button('FISERV SPECIFIC 1',tooltip='Fiserv relevant stats'), sg.Button('FISERV SPECIFIC 2',tooltip='Fiserv relevant stats')],
             [sg.Button('Clear', tooltip='Clears window below'), sg.Button('Exit', button_color=('white', 'red'), size=(10, 1),  tooltip='EXIT Application')],
             [sg.Text('Enter CLI Command', font=("bold")), sg.InputText(key='-CLI-'), sg.Button('Submit')],
             [sg.Text('Enter REST API Command', font=("bold")), sg.InputText(key='-REST-'), sg.Text('JSON-RPC - Coming Soon')],
-            [sg.Output(size=(158, 27), key='-OUTPUT-')],
+            [sg.Output(size=(158, 30), key='-OUTPUT-')],
             [sg.Text('2020 Applied Methodologies, Inc.')]]
                 #####look into sg.output formatting vs. Json.
                 ####print (json.dumps(ios_output, indent=4))
