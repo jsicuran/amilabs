@@ -14,7 +14,7 @@
 #########
 #IMPORTS#
 #########
-
+##########################################################################
 #import PySimpleGUIWeb as sg ---> FOR WEB VERSION
 import os
 import sys
@@ -26,7 +26,7 @@ from netmiko import ConnectHandler
 from netmiko.ssh_exception import NetMikoTimeoutException
 from paramiko.ssh_exception import SSHException
 from netmiko.ssh_exception import AuthenticationException
-
+#########################################################################
 
 ####### connect to switch  code library#######
 #from netmiko import ConnectHandler
@@ -66,6 +66,8 @@ appinfo = '''    (C)2020 Applied Methodologies, Inc
 Cisco Nexus 9000 Command version
 
 ISIS Underlay version
+
+Some Command Buttons have hover over pop up descriptions
 
 NetMiko libray using Cisco_Ios as API device type
 
@@ -112,8 +114,8 @@ def apprun():
             window['-OUTPUT-'].update(net_connect.send_command('sh bgp l2vpn evpn route-type 2 '))
         if event == 'BGP Neighbors':
             window['-OUTPUT-'].update(net_connect.send_command('sh bgp l2vpn evpn neighbors '))
-        if event == 'EVPN NEXT HOP':
-            window['-OUTPUT-'].update(net_connect.send_command('sh bgp l2vpn evpn nexthop 0.0.0.0 '))
+        if event == 'BGP EVPN LOG':
+            window['-OUTPUT-'].update(net_connect.send_command('sh bgp event-history events '))
         if event == 'EVPN Paths':
             window['-OUTPUT-'].update(net_connect.send_command('sh bgp l2vpn evpn received-paths '))
         if event == 'VLANs':
@@ -190,9 +192,9 @@ layout = [[sg.Text('Enter IPv4 Address:', font=("bold")), sg.InputText(key='-IP-
 ################## MAIN APPLICATION SCREEN LAYOUT ################################################
             [sg.Text('_'  * 160)],
             [sg.Text('BGP-EVPN FABRIC OVERLAY DETAIL - Address Family: L2VPN EVPN', font=("bold"))],
-            [sg.Button('NVE Overlay Setup', tooltip='NVE Overlay running configuration'), sg.Button('BGP Summary'), sg.Button('BGP MAC Table', button_color=('white', 'green'), tooltip='BGP Type 2 NLRI TABLE'), sg.Button('Layer2 MAC Routes', tooltip="L2 MAC ROUTING TABLE"), sg.Button('BGP NLRI Type 2'), sg.Button('BGP Neighbors'), sg.Button('EVPN NEXT HOP', tooltip='Next HOP for Active Traffic'), sg.Button('EVPN Paths', tooltip='BGP EVPN Recived paths')],
+            [sg.Button('NVE Overlay Setup', tooltip='NVE Overlay running configuration'), sg.Button('BGP Summary'), sg.Button('BGP MAC Table', button_color=('white', 'green'), tooltip='BGP Type 2 NLRI TABLE'), sg.Button('Layer2 MAC Routes', tooltip="L2 MAC ROUTING TABLE"), sg.Button('BGP NLRI Type 2'), sg.Button('BGP Neighbors'), sg.Button('EVPN Paths', tooltip='BGP EVPN Recived paths'), sg.Button('BGP EVPN LOG', button_color=('black', 'orange'), tooltip='BGP EVPN detailed event log')],
             [sg.Text('VXLAN NVE/VNI Detail:', font=("bold"))],
-            [sg.Button('VLANs', tooltip='vlans on device'), sg.Button('VRFs',tooltip='vrfs on device'), sg.Button('VXLAN', tooltip=' LEAF VXLAN VTEPs'), sg.Button('VXLAN Interfaces'), sg.Button('VNI', tooltip='VNI Control plane peers'), sg.Button('NVE Peers'), sg.Button('NVE Peer Detail', tooltip='Active peer summary'), sg.Button('VTEP Peers', tooltip='Active peer details'), sg.Button('L2FWDR Mac', tooltip='Layer 2 MAC Table'), sg.Button('L2RIB Topology History', tooltip='Topology Change log'), sg.Button('L2RIB Error Logs'),sg.Button('L2FM ERROR LOG', tooltip='L2 Finite-state Machine log')],
+            [sg.Button('VLANs', tooltip='vlans on device'), sg.Button('VRFs',tooltip='vrfs on device'), sg.Button('VXLAN', tooltip=' LEAF VXLAN VTEPs'), sg.Button('VXLAN Interfaces'), sg.Button('VNI', tooltip='VNI Control plane peers'), sg.Button('NVE Peers'), sg.Button('NVE Peer Detail', tooltip='Active peer summary'), sg.Button('VTEP Peers', tooltip='Active peer details'), sg.Button('L2FWDR Mac', tooltip='Layer 2 MAC Table'), sg.Button('L2RIB Topology History', button_color=('black', 'orange'), tooltip='Topology Change log'), sg.Button('L2RIB Error Logs', button_color=('black', 'orange')), sg.Button('L2FM ERROR LOG', button_color=('black', 'orange'), tooltip='L2 Finite-state Machine log')],
             [sg.Text('FABRIC UNDERLAY DETAIL - (for ISIS based systems):',font=("bold") )],
             [sg.Button('ISIS Interfaces', tooltip='ISIS Interfaces'), sg.Button('ISIS Interface Detail', tooltip='ISIS Interface details'), sg.Button('ISIS Adjacency', tooltip='ISIS Neighbors to SPINES'), sg.Button('ISIS Routing'), sg.Button('ISIS Topology'), sg.Button('ISIS Database'), sg.Button('ISIS Database Detail', tooltip='ISIS Database Detail'), sg.Button('ISIS CSNP Detail', tooltip='CSNP Informaion'), sg.Button('ISIS SPF Log', button_color=('black', 'orange'),  tooltip='ISIS SPF Change Log',)],
             [sg.Text('FABRIC Control Plane and BUM REPLICATION:',font=("bold") )],
@@ -207,7 +209,7 @@ layout = [[sg.Text('Enter IPv4 Address:', font=("bold")), sg.InputText(key='-IP-
                 #####look into sg.output formatting vs. Json.
                 ####print (json.dumps(ios_output, indent=4))
 
-window = sg.Window('JEFFs BGP-EVPN LOOKING GLASS V1.1', layout)
+window = sg.Window('JEFFs BGP-EVPN LOOKING GLASS V1.6', layout)
     #### PUT IN LOGIN PROCESS AND ERROR HANDLING HERE#####
     #### 1st r evision is  one while loop process for all #####
     #### 2nd revision SPLIT INTO FUNCTIONS AND CALL#####
