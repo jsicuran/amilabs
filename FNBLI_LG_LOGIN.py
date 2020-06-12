@@ -63,6 +63,35 @@ from netmiko.ssh_exception import AuthenticationException
 
 ###OLD SCHOOL CALL OUT TO COBOL RUNCOB#########
 
+######Application Information###################################################################
+appinfo = '''    (C)2020 Applied Methodologies, Inc
+HP ARUBA J9851A #KB.16.08.0001 Command version
+
+Some Command Buttons have hover over pop up descriptions
+
+NetMiko libray using hp_procurve as API device type
+
+PySimpleGUI as GUI Library
+
+Command line function - can run any command based on authorization level
+
+Additional Command Buttons for switches/routers can be added or changed easily
+
+RESTful functionality to be added in future
+
+Compiled with PyInstaller for mobile executable version
+
+Source Code is located @ https://github.com/jsicuran/amilabs
+
+Built for FNBLI Dual Core FAT SPINE Data Center for single pane monitoring '''
+
+#################################################################################################
+
+
+
+
+
+
 ###WINDOW THEME #####
 sg.theme('Green')
 
@@ -144,6 +173,8 @@ def apprun():
             window['-OUTPUT-'].update(net_connect.send_command('sh vlan 2000'))
         if event == 'CC PtP VLAN STATS':
             window['-OUTPUT-'].update('TO BE ADDED')
+        if event == 'Application Information':
+            window['-OUTPUT-'].update(print(appinfo))
         if event == 'Disconnect':  #### DISCONNECT FROM SWITCH
             net_connect.disconnect()
             window['-OUTPUT-'].update('')
@@ -159,7 +190,7 @@ layout = [[sg.Text('Enter IPv4 Address:', font=("bold")), sg.InputText(key='-IP-
             sg.Text('Switch Credentials(SSH ONLY):', font=("bold")), sg.Text('Enter Username:', font=("bold")),
             sg.InputText(key='-USER-', size=(22, 1)), sg.Text('Enter Password:', font=("bold")),
             sg.InputText(key='-PWD-', password_char="*", size=(22, 1))],
-            [sg.Button('Login'), sg.Cancel(), sg.Button('Disconnect')],
+            [sg.Button('Login',size=(10,1)), sg.Button('Disconnect',size=(10,1)), sg.Cancel(), sg.Button('Application Information', size=(18,1))],
             [sg.Text('_' * 160)],
             # [sg.Text('Connection Status LOG:', font=("bold"))],
             # [sg.Output(size=(35, 5), key='-OUTPUT1-'),
@@ -178,7 +209,7 @@ layout = [[sg.Text('Enter IPv4 Address:', font=("bold")), sg.InputText(key='-IP-
             [sg.Button('Clear', tooltip='Clears window below'), sg.Button('Exit', button_color=('white', 'red'), size=(10, 1),  tooltip='EXIT Application')],
             [sg.Text('Enter CLI Command', font=("bold")), sg.InputText(key='-CLI-'), sg.Button('Submit')],
             [sg.Text('Enter REST API Command', font=("bold")), sg.InputText(key='-REST-'), sg.Text('JSON-RPC - Coming Soon')],
-            [sg.Output(size=(158, 30), key='-OUTPUT-')],
+            [sg.Output(size=(158, 27), key='-OUTPUT-')],
             [sg.Text('2020 Applied Methodologies, Inc.')]]
                 #####look into sg.output formatting vs. Json.
                 ####print (json.dumps(ios_output, indent=4))
@@ -224,6 +255,10 @@ while True:             ### MAIN SINGLE EVENT WHILE LOOP MASTER-LARGE version CA
         except Exception as unknown_error:
             window['-OUTPUT-'].update(print("Unknown Error:" + str(unknown_error)))
         continue
+    if event == 'Application Information':
+        window['-OUTPUT-'].update(print(appinfo))
+    if event == 'Clear':
+        window['-OUTPUT-'].update('')
 
 #### SUCCESSFUL LOGIN LOOP TRANSFERS TO MAAIN APPLICATION LOGIC FUNCITION UNTIL DISCONNECT EVENT###########
 
