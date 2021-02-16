@@ -63,7 +63,7 @@ net_connect = ConnectHandler(**iosv_l2_s1)
 
 sg.theme('Green')
 
-layout = [  [sg.Text('FNBLI CORE SWITCH #1 @ 10.200.100.230', font=("bold", 15))],
+layout = [  [sg.Text('FNBLI CORE SWITCH #1 @ 100.100.100.1', font=("bold", 15))],
             #[sg.Button('LOGIN TO A SWITCH', button_color=('white', 'green'), size=(20,2))],
             [sg.Text('INTERFACES - CONSOLE LOG - VLAN - VRRP - IP ASSIGNMENTS:', font=("bold"))],
             [sg.Button('CONNECTED NEIGHBORS'), sg.Button('INTERFACE ASSIGNMENTS'), sg.Button('INTERFACE PORT UTILIZATION'), sg.Button('REAL TIME INTERFACE STATISTICS'), sg.Button('VLAN ASSIGNMENTS'), sg.Button('SWITCH LOG', tooltip='Switch Log from most recent to old', button_color=('white', 'red'))],
